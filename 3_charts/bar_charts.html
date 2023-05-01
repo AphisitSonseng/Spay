@@ -1,0 +1,50 @@
+<html>
+<head>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+
+<!--เรียกใช้ API ของ Google Chart-->
+<script type="text/javascript">
+
+//------เรียกใช้ package ของทำ Bar Chart
+google.charts.load('current', {'packages':['bar']});   
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+	//------ใส่ข้อมูลที่จะแสดงบนกราฟ 2 ส่วนคือ 
+  //--1. บรรทัดแรกเป็น label ในแกน x (แนวตั้ง)
+  //--2. บรรทัดที่ 2 เป็นต้นไปต้องเป็นจำนวน 
+  //--แต่ย่ำว่าต้องเป็นตัวเลขเท่านั้น หากเป็นข้อความ var, string กราฟจะไม่แสดง
+  var data = google.visualization.arrayToDataTable (
+		[	['Year', 'Sales', 'Expenses', 'Profit'],  
+      ['2014', 1000, 400, 200],  
+      ['2015', 1170, 460, 250],
+      ['2016', 660, 1120, 300],
+      ['2017', 1030, 540, 350]
+		]);
+
+	//--ส่วนตั้งค่ารูปแบบของกราฟ เช่น หัวข้อกราฟ, รูปแบบตัวอักษร, ขนาดของแท่ง, แนวของกราฟแท่ง (แนวตั้ง / แนวนอน)
+	var options = {
+		chart: {
+			title: 'Company Performance', //--หัวข้อกราฟ
+			subtitle: 'Sales, Expenses, and Profit: 2014-2017',  //---คำอธิบายกราฟจะอยู่ใต้ title
+    }, 
+    bars: 'horizontal' //--ให้กราฟอยู่ในแนวตั้ง (vertical) / แนวนอน (horizontal)
+  };
+
+	//--ส่วนประมวลผลทำกราฟออกมาเอา id ที่ชื่อ barchart_material ไปใช้ในหน้า View ของเรา 
+  var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+  chart.draw(data, google.charts.Bar.convertOptions(options));
+}
+</script>
+</head>
+
+<body>
+<!--ใช้ div ในการแสดงผลกราฟออกมาสามารถปรับขนาดกราฟได้ตามต้องการ-->
+<div id="barchart_material" style="width: 900px; height: 500px;"></div>
+</body>
+
+<!-- https://www.mindphp.com/forums/viewtopic.php?f=72&t=71768 -->
+<!-- https://developers.google.com/chart/interactive/docs/gallery/barchart -->
+
+</html>
